@@ -1,4 +1,4 @@
-import { type Command, CommandCategory } from "./command";
+import { type Command, CommandCategory } from "@commands/command";
 import { z } from "zod";
 
 class CommandManager {

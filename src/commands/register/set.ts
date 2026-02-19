@@ -1,5 +1,5 @@
-import { defineArgs } from "../../helpers";
-import { CommandCategory, createCommand } from "../command";
+import { defineArgs } from "@/helpers";
+import { CommandCategory, createCommand } from "@commands/command";
 import { z } from "zod";
 
 export const setCommand = createCommand({

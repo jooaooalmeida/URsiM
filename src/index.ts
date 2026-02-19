@@ -1,6 +1,6 @@
 import { setCommand } from "@commands/register/set";
-import { helpCommand } from "./commands/general/help";
-import { commandManager } from "./commands/manager";
+import { helpCommand } from "@commands/general/help";
+import { commandManager } from "@commands/manager";
 
 commandManager.register(helpCommand);
 commandManager.register(setCommand);

@@ -1,5 +1,5 @@
-import { defineArgs } from "../../helpers";
-import { CommandCategory, createCommand } from "../command";
+import { defineArgs } from "@/helpers";
+import { CommandCategory, createCommand } from "@commands/command";
 
 export const helpCommand = createCommand({
   name: "help",

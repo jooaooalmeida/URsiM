@@ -13,7 +13,7 @@ class CommandManager {
     this.commandMap.get(categoryName)!.set(command.name, command);
   }
 
-  execute(args: string[]) {
+  async execute(args: string[]) {
     const argOne = args[0]?.toLowerCase();
     let category: string;
     let commandName: string;
@@ -49,7 +49,7 @@ class CommandManager {
       return console.log(z.prettifyError(result.error));
     }
 
-    command.onRun(result.data);
+    await command.onRun(result.data);
   }
 }
 

@@ -19,6 +19,7 @@
     "typescript": "^5"
   },
   "dependencies": {
+    "table": "^6.9.0",
     "zod": "^4.3.6"
   }
 }

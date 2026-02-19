@@ -27,7 +27,8 @@
     "noPropertyAccessFromIndexSignature": false,
     "paths": {
       "@commands/*": ["./src/commands/*"],
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@simulator/*": ["./src/simulator/*"]
     }
   }
 }

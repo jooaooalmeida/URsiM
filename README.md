@@ -1,3 +1,3 @@
 # URsiM
 
-URsiM is an Unlimited Registry Machine Simulator, developed with Bun to aid students and teachers.
+URsiM is an Unlimited Register Machine Simulator, developed with Bun to aid students and teachers.

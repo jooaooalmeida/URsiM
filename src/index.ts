@@ -1,7 +1,13 @@
+import { setCommand } from "@commands/register/set";
 import { helpCommand } from "./commands/general/help";
-import { CommandManager } from "./commands/manager";
+import { commandManager } from "./commands/manager";
 
-const commandManager = new CommandManager();
 commandManager.register(helpCommand);
+commandManager.register(setCommand);
 
-commandManager.execute(prompt("Insira o nome do comando a executar: ") ?? "", ["45"]);
+console.write("Welcome to the URsiM interactive shell! Press CTRL + C to exit.\n> ");
+
+for await (const line of console) {
+  commandManager.execute(line.split(" "));
+  console.write("> ");
+}

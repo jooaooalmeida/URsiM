@@ -7,7 +7,10 @@ export type Instructions =
 export function generateAST(rawInstructions: string[]): Instructions[] {
   return rawInstructions.map((i, index) => {
     const instruction = i.charAt(0).toUpperCase();
-    const args = i.slice(2, -1).replaceAll(" ", "").split(",");
+    const args = i
+      .slice(2, i.charAt(-1) === ";" ? -2 : -1)
+      .replaceAll(" ", "")
+      .split(",");
     switch (instruction) {
       case "Z":
         if (args.length === 1 && Number(args[0]) > 0) {

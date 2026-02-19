@@ -3,6 +3,7 @@ import { z } from "zod";
 export enum CommandCategory {
   GENERAL,
   REGISTER,
+  CONFIG,
 }
 
 export interface Command<T extends z.ZodType<any>> {

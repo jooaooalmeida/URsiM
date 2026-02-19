@@ -3,11 +3,19 @@ import type { Instructions } from "./parser";
 
 class Simulator {
   registers = new Registers();
+  timeout = 5;
   programCounter = 0;
+  startTime = Date.now();
 
   execute(program: Instructions[]) {
     this.programCounter = 0;
+    this.startTime = Date.now();
     while (this.programCounter < program.length) {
+      if (Date.now() - this.startTime > this.timeout * 1000) {
+        this.registers.list();
+        console.log("Stopping execution after 10 second timeout. (Is this program solvable?)");
+        break;
+      }
       const instruction = program[this.programCounter];
       switch (instruction?.type) {
         case "JUMP":

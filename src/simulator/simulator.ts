@@ -7,6 +7,10 @@ class Simulator {
   programCounter = 0;
   startTime = Date.now();
 
+  setTimeout(value: number) {
+    this.timeout = value;
+  }
+
   execute(program: Instructions[]) {
     this.programCounter = 0;
     this.startTime = Date.now();

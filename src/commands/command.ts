@@ -1,13 +1,13 @@
 import { z } from "zod";
 
-export enum CommandType {
+export enum CommandCategory {
   GENERAL,
   REGISTER,
 }
 
 export interface Command<T extends z.ZodType<any>> {
   name: string;
-  category: CommandType;
+  category: CommandCategory;
   schema: T;
   onRun: (args: z.infer<T>) => void;
 }

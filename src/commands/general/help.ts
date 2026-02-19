@@ -1,11 +1,11 @@
-import { CommandType, createCommand } from "../command";
+import { CommandCategory, createCommand } from "../command";
 import { z } from "zod";
 
-const helpSchema = z.array(z.string());
+const helpSchema = z.any();
 
 export const helpCommand = createCommand({
   name: "help",
-  category: CommandType.GENERAL,
+  category: CommandCategory.GENERAL,
   schema: helpSchema,
 
   onRun: () => {

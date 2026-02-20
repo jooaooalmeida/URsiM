@@ -18,7 +18,7 @@ class Simulator {
       if (Date.now() - this.startTime > this.timeout * 1000) {
         this.registers.list();
         console.log("Stopping execution after 10 second timeout. (Is this program solvable?)");
-        break;
+        return;
       }
       const instruction = program[this.programCounter];
       switch (instruction?.type) {

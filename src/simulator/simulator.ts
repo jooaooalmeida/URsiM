@@ -32,7 +32,7 @@ class Simulator {
         }
 
         if (Date.now() - this.startTime > this.timeout * 1000 && !this.debug) {
-          console.log("Stopping execution after timeout. (Is this program solvable?)");
+          throw new Error("Stopping execution after timeout. (Is this program solvable?)");
           return;
         }
 
@@ -62,6 +62,9 @@ class Simulator {
             break;
         }
       }
+      console.log("Program finished execution successfully.");
+    } catch (e) {
+      console.log((e as Error).message ?? "Program execution failed with unknown error.");
     } finally {
       this.registers.list();
     }

@@ -21,46 +21,50 @@ class Simulator {
   async execute(program: Instructions[]) {
     this.programCounter = 0;
     this.startTime = Date.now();
-    while (this.programCounter < program.length) {
-      if (Date.now() - this.startTime > this.timeout * 1000 && !this.debug) {
-        this.registers.list();
-        console.log("Stopping execution after 10 second timeout. (Is this program solvable?)");
-        return;
-      }
-      const instruction = program[this.programCounter];
-      switch (instruction?.type) {
-        case "JUMP":
-          if (
-            this.registers.get(instruction.firstRegister) ==
-            this.registers.get(instruction.secondRegister)
-          ) {
-            this.programCounter = instruction.goto - 1;
-          } else {
+
+    try {
+      while (this.programCounter < program.length) {
+        if (this.debug) {
+          console.log(`Next instruction to execute: ${program[this.programCounter]?.type}`);
+          this.registers.list();
+          console.log("Press any key to continue...");
+          await waitForKeypress();
+        }
+
+        if (Date.now() - this.startTime > this.timeout * 1000 && !this.debug) {
+          console.log("Stopping execution after timeout. (Is this program solvable?)");
+          return;
+        }
+
+        const instruction = program[this.programCounter];
+        switch (instruction?.type) {
+          case "JUMP":
+            if (
+              this.registers.get(instruction.firstRegister) ==
+              this.registers.get(instruction.secondRegister)
+            ) {
+              this.programCounter = instruction.goto - 1;
+            } else {
+              this.programCounter++;
+            }
+            break;
+          case "SUCCESSOR":
+            this.registers.increment(instruction.register);
             this.programCounter++;
-          }
-          break;
-        case "SUCCESSOR":
-          this.registers.increment(instruction.register);
-          this.programCounter++;
-          break;
-        case "TRANSFER":
-          this.registers.set(instruction.to, this.registers.get(instruction.from));
-          this.programCounter++;
-          break;
-        case "ZERO":
-          this.registers.zero(instruction.register);
-          this.programCounter++;
-          break;
+            break;
+          case "TRANSFER":
+            this.registers.set(instruction.to, this.registers.get(instruction.from));
+            this.programCounter++;
+            break;
+          case "ZERO":
+            this.registers.zero(instruction.register);
+            this.programCounter++;
+            break;
+        }
       }
-      if (this.debug) {
-        console.log(`Current Instruction: ${instruction?.type}`);
-        console.log(`Next instruction: ${program[this.programCounter]?.type ?? "EOF"}`);
-        this.registers.list();
-        console.log("Press any key to continue...");
-        await waitForKeypress();
-      }
+    } finally {
+      this.registers.list();
     }
-    this.registers.list();
   }
 }
 

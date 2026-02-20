@@ -10,6 +10,7 @@ import { listCommand } from "@commands/register/list";
 import { runCommand } from "@commands/general/run";
 import { timeoutCommand } from "@commands/config/timeout";
 import { listScriptsCommand } from "@commands/general/ls";
+import { debugCommand } from "@commands/config/debug";
 
 const rl = readline.createInterface({ input, output, prompt: "(URsiM)> " });
 
@@ -22,6 +23,7 @@ commandManager.register(runCommand);
 commandManager.register(registerClearCommand);
 commandManager.register(timeoutCommand);
 commandManager.register(listScriptsCommand);
+commandManager.register(debugCommand);
 
 console.log(
   "Welcome to the URsiM interactive shell! Use the help command or press CTRL + C to exit.",

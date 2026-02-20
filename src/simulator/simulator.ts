@@ -1,3 +1,4 @@
+import { waitForKeypress } from "@/helpers";
 import { Registers } from "@simulator/registers";
 import type { Instructions } from "./parser";
 
@@ -5,13 +6,19 @@ class Simulator {
   registers = new Registers();
   timeout = 5;
   programCounter = 0;
+  debug = false;
   startTime = Date.now();
 
   setTimeout(value: number) {
     this.timeout = value;
   }
 
-  execute(program: Instructions[]) {
+  toggleDebug() {
+    this.debug = !this.debug;
+    return this.debug;
+  }
+
+  async execute(program: Instructions[]) {
     this.programCounter = 0;
     this.startTime = Date.now();
     while (this.programCounter < program.length) {
@@ -44,6 +51,13 @@ class Simulator {
           this.registers.zero(instruction.register);
           this.programCounter++;
           break;
+      }
+      if (this.debug) {
+        console.log(`Current Instruction: ${instruction?.type}`);
+        console.log(`Next instruction: ${program[this.programCounter]?.type}`);
+        this.registers.list();
+        console.log("Press any key to continue...");
+        await waitForKeypress();
       }
     }
     this.registers.list();

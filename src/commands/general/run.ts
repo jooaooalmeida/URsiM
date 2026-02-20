@@ -23,6 +23,6 @@ export const runCommand = createCommand({
       return console.log(`Failed to read file ${programPath}`);
     }
     const programAST = generateAST(content);
-    simulator.execute(programAST);
+    await simulator.execute(programAST);
   },
 });

@@ -1,6 +1,6 @@
-import { waitForKeypress } from "@/helpers";
+import { instructionToString, waitForKeypress } from "@/helpers";
 import { Registers } from "@simulator/registers";
-import type { Instructions } from "./parser";
+import { generateAST, URMSyntaxError } from "@simulator/parser";
 
 class Simulator {
   registers = new Registers();
@@ -18,14 +18,17 @@ class Simulator {
     return this.debug;
   }
 
-  async execute(program: Instructions[]) {
+  async execute(content: string[]) {
     this.programCounter = 0;
     this.startTime = Date.now();
 
     try {
+      const program = generateAST(content);
       while (this.programCounter < program.length) {
         if (this.debug) {
-          console.log(`Next instruction to execute: ${program[this.programCounter]?.type}`);
+          console.log(
+            `Next instruction to execute: ${instructionToString(program[this.programCounter]!)}`,
+          );
           this.registers.list();
           console.log("Press any key to continue...");
           await waitForKeypress();
@@ -63,10 +66,12 @@ class Simulator {
         }
       }
       console.log("Program finished execution successfully.");
+      this.registers.list();
     } catch (e) {
       console.log((e as Error).message ?? "Program execution failed with unknown error.");
-    } finally {
-      this.registers.list();
+      if (!(e instanceof URMSyntaxError)) {
+        this.registers.list();
+      }
     }
   }
 }

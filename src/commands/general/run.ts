@@ -1,5 +1,4 @@
 import { defineArgs } from "@/helpers";
-import { generateAST } from "@/simulator/parser";
 import { simulator } from "@/simulator/simulator";
 import { CommandCategory, createCommand } from "@commands/command";
 import z from "zod";
@@ -22,7 +21,6 @@ export const runCommand = createCommand({
     if (content.length === 0) {
       return console.log(`Failed to read file ${programPath}`);
     }
-    const programAST = generateAST(content);
-    await simulator.execute(programAST);
+    await simulator.execute(content);
   },
 });

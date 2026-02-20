@@ -1,5 +1,6 @@
 import { stdin } from "node:process";
 import { z } from "zod";
+import type { Instructions } from "@simulator/parser";
 
 export function defineArgs<T extends z.ZodRawShape>(shape: T) {
   return z.preprocess((val: unknown) => {
@@ -12,6 +13,22 @@ export function defineArgs<T extends z.ZodRawShape>(shape: T) {
 
     return result;
   }, z.object(shape));
+}
+
+export function instructionToString(instruction: Instructions) {
+  switch (instruction.type) {
+    case "JUMP":
+      return `JUMP TO INST ${instruction.goto} IF R${instruction.firstRegister} == R${instruction.secondRegister}`;
+      break;
+    case "SUCCESSOR":
+      return `SUCCESSOR at R${instruction.register}`;
+      break;
+    case "TRANSFER":
+      return `TRANSFER from R${instruction.from} to R${instruction.to}`;
+      break;
+    case "ZERO":
+      return `ZERO at R${instruction.register}`;
+  }
 }
 
 export function waitForKeypress(): Promise<void> {

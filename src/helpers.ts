@@ -31,7 +31,7 @@ export function instructionToString(instruction: Instructions) {
   }
 }
 
-export function waitForKeypress(): Promise<void> {
+export function waitForKeypress(): Promise<boolean> {
   return new Promise((resolve) => {
     const wasRaw = stdin.isRaw;
     const listeners = stdin.rawListeners("data");
@@ -51,9 +51,9 @@ export function waitForKeypress(): Promise<void> {
       }
 
       if (data[0] === 3) {
-        process.exit();
+        resolve(true);
       }
-      resolve();
+      resolve(false);
     });
   });
 }

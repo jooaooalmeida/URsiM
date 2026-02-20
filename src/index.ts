@@ -26,7 +26,7 @@ commandManager.register(listScriptsCommand);
 commandManager.register(debugCommand);
 
 console.log(
-  "Welcome to the URsiM interactive shell! Use the help command or press CTRL + C to exit.",
+  "Welcome to the URsiM interactive shell! Use the help command or use the exit command.",
 );
 
 rl.prompt();

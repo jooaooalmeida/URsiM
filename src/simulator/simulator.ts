@@ -30,8 +30,9 @@ class Simulator {
             `Next instruction to execute: ${instructionToString(program[this.programCounter]!)}`,
           );
           this.registers.list();
-          console.log("Press any key to continue...");
-          await waitForKeypress();
+          console.log("Press any key to continue or CTRL + C to abort");
+          const aborted = await waitForKeypress();
+          if (aborted) throw new Error("Stopping execution due to user request.");
         }
 
         if (Date.now() - this.startTime > this.timeout * 1000 && !this.debug) {

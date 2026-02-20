@@ -54,7 +54,7 @@ class Simulator {
       }
       if (this.debug) {
         console.log(`Current Instruction: ${instruction?.type}`);
-        console.log(`Next instruction: ${program[this.programCounter]?.type}`);
+        console.log(`Next instruction: ${program[this.programCounter]?.type ?? "EOF"}`);
         this.registers.list();
         console.log("Press any key to continue...");
         await waitForKeypress();

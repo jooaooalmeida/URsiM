@@ -22,7 +22,7 @@ class Simulator {
     this.programCounter = 0;
     this.startTime = Date.now();
     while (this.programCounter < program.length) {
-      if (Date.now() - this.startTime > this.timeout * 1000) {
+      if (Date.now() - this.startTime > this.timeout * 1000 && !this.debug) {
         this.registers.list();
         console.log("Stopping execution after 10 second timeout. (Is this program solvable?)");
         return;

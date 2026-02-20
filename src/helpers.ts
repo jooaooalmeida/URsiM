@@ -32,7 +32,7 @@ export function waitForKeypress(): Promise<void> {
       for (const listener of listeners) {
         stdin.on("data", listener as (...args: unknown[]) => void);
       }
-      // Ctrl+C
+
       if (data[0] === 3) {
         process.exit();
       }

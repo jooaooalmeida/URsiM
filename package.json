@@ -8,7 +8,15 @@
     "fmt:check": "oxfmt --check",
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
-    "dev": "bun run src/index.ts"
+    "dev": "bun run src/index.ts",
+    "compile:linux": "bun build --compile --target=bun-linux-x64 ./src/index.ts --outfile ./out/URsiM-linux-x64 && bun build --compile --target=bun-linux-arm64 ./src/index.ts --outfile ./out/URsiM-linux-arm64",
+    "compile:macos": "bun build --compile --target=bun-macos-x64 ./src/index.ts --outfile ./out/URsiM-macos-x64 && bun build --compile --target=bun-macos-arm64 ./src/index.ts --outfile ./out/URsiM-macos-arm64",
+    "compile:windows": "bun build --compile --target=bun-windows-x64 ./src/index.ts --outfile ./out/URsiM-windows-x64",
+    "compile": "bun compile:linux && bun compile:macos && bun compile:windows"
+  },
+  "dependencies": {
+    "table": "^6.9.0",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@types/bun": "latest",
@@ -17,9 +25,5 @@
   },
   "peerDependencies": {
     "typescript": "^5"
-  },
-  "dependencies": {
-    "table": "^6.9.0",
-    "zod": "^4.3.6"
   }
 }
